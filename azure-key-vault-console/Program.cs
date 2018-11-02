@@ -10,6 +10,9 @@ namespace azure_key_vault_console
         static void Main(string[] args)
         {
             Console.WriteLine("Azure Key Vault demo Started!");
+
+            Console.WriteLine();
+            Console.WriteLine("*********** Using DI ************");
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
             var diContainer = new ServiceCollection();
             diContainer.AddSingleton<ISecurityVault, AzureKeyVault>();
@@ -23,6 +26,12 @@ namespace azure_key_vault_console
             Console.WriteLine($"secret={secret}");
             var rsaPrivateKey = securityVault.GetSecret("my-rsa-private-key-secret");            
             Console.WriteLine($"key={rsaPrivateKey}");
+
+            Console.WriteLine();
+            Console.WriteLine("*********** Not using DI ************");
+            var rsaPrivateKeyNonDI = new AzureKeyVault(builder.Build()).GetSecret("my-rsa-private-key-secret");
+            Console.WriteLine($"key={rsaPrivateKeyNonDI}");
+
             Console.WriteLine("Azure Key Vault demo Ended!");
         }
     }
