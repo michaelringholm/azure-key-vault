@@ -1,5 +1,5 @@
 {
     "key-vault" : {
         "url" : "https://<my-key-vault>.vault.azure.net/"
-    },
+    }
 }

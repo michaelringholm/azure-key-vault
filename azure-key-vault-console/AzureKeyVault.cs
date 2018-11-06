@@ -36,5 +36,10 @@ namespace azure_key_vault_console
             var secret = _keyVault.GetSecretAsync(_keyVaultUrl, secretName).ConfigureAwait(false).GetAwaiter().GetResult();
             return secret.Value;
         }
+
+        public void CreateSecret(string secretName, string secret)
+        {
+            _keyVault.SetSecretAsync(_keyVaultUrl, secretName, secret).ConfigureAwait(false).GetAwaiter().GetResult();
+        }        
     }
 }
